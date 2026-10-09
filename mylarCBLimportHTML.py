@@ -30,7 +30,6 @@ import base64
 import pandas as pd
 from PIL import Image
 from io import BytesIO
-from IPython.display import HTML
 import datetime
 from datetime import timedelta
 
