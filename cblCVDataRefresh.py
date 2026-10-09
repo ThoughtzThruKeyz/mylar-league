@@ -94,6 +94,7 @@ def check_file(filePath, save_old=False, use_mylar=False):
                     found_volume_in_mylar = True
 
             if not found_volume_in_mylar:            
+                response = None
                 goodResponse = False
                 while not goodResponse:
                     goodResponse = True
@@ -107,7 +108,14 @@ def check_file(filePath, save_old=False, use_mylar=False):
                         if 'Rate limit exceeded' in repr(e):
                             print('Rate limited sleeping 200 seconds...')
                             time.sleep(200)
-                
+                        if 'Object Not Found' in repr(e):
+                            print('Not Found...  leaving this entry unchanged....')
+                            goodResponse = True
+                        if 'Invalid API Key' in repr(e):
+                            raise SystemExit('ComicVine rejected the API key. Check cv_api_key in your config.')
+
+                if response is None:
+                    continue
                 current_name = response.name
                 current_year = str(response.start_year)
             else:
