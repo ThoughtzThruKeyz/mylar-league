@@ -56,7 +56,6 @@ from sys import argv
 import numpy as np
 import re
 from simyan.comicvine import Comicvine
-from simyan.cache import SQLiteCache
 import configparser
 import unicodedata
 
@@ -257,7 +256,7 @@ def findVolumeDetails(series,year):
         try:
             if VERBOSE: print("     Searching for %s (%s) on CV" % (series,year))
             
-            session = Comicvine(api_key=CV_API_KEY, cache=SQLiteCache())
+            session = Comicvine(api_key=CV_API_KEY)
             searchparam = "name:" + series
 
             response = session.list_volumes(params={"filter": searchparam})

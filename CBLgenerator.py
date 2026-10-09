@@ -9,7 +9,7 @@ from sys import argv
 import numpy as np
 import re
 from simyan.comicvine import Comicvine
-from simyan.cache import SQLiteCache
+from pathlib import Path
 import configparser
 #import xlsxwriter
 from PIL import Image
@@ -1266,7 +1266,7 @@ def findIssueID(seriesID,issueNum):
             try:
                 if VERBOSE: print("     Searching for %s on CV" % (seriesID))
             
-                session = Comicvine(api_key=CV_API_KEY, cache=SQLiteCache(cvCacheFile,CACHE_RETENTION_TIME))
+                session = Comicvine(api_key=CV_API_KEY, cache_path=Path(cvCacheFile), cache_expiry=CACHE_RETENTION_TIME)
                 searchparam = "volume:" + str(seriesID)
 
 
@@ -1312,7 +1312,7 @@ def getVolumeDetails(seriesID):
             try:
                 print("     Searching for %s volume details on CV" % (str(seriesID)))
                 #time.sleep(CV_API_RATE)
-                session = Comicvine(api_key=CV_API_KEY, cache=SQLiteCache(cvCacheFile,CACHE_RETENTION_TIME))
+                session = Comicvine(api_key=CV_API_KEY, cache_path=Path(cvCacheFile), cache_expiry=CACHE_RETENTION_TIME)
                 response = session.get_volume(seriesID)
                 cvSeriesName = response.name
                 cvSeriesYear = response.start_year
@@ -1338,7 +1338,7 @@ def getSeriesIDfromIssue(issueID):
     while not goodResponse:
         goodResponse = True
         try:
-            session = Comicvine(api_key=CV_API_KEY, cache=SQLiteCache(cvCacheFile,CACHE_RETENTION_TIME))
+            session = Comicvine(api_key=CV_API_KEY, cache_path=Path(cvCacheFile), cache_expiry=CACHE_RETENTION_TIME)
 
             response = session.get_issue(issue_id=issueID)
             seriesid = response.volume.id
@@ -1369,7 +1369,7 @@ def getIssueDetails(issueID):
             try:
                 print("     Searching for %s issue details on CV" % (str(issueID)))
                 #time.sleep(CV_API_RATE)
-                session = Comicvine(api_key=CV_API_KEY, cache=SQLiteCache(cvCacheFile,CACHE_RETENTION_TIME))
+                session = Comicvine(api_key=CV_API_KEY, cache_path=Path(cvCacheFile), cache_expiry=CACHE_RETENTION_TIME)
 
                 response = session.get_issue(issueID)
                 cvImageURL = response.image.medium_url
@@ -1506,7 +1506,7 @@ def findVolume(series,year):
                 #try:
                 if VERBOSE: print("     Searching for %s (%s) on CV" % (series,year))
                 
-                session = Comicvine(api_key=CV_API_KEY, cache=SQLiteCache(cvCacheFile,CACHE_RETENTION_TIME))
+                session = Comicvine(api_key=CV_API_KEY, cache_path=Path(cvCacheFile), cache_expiry=CACHE_RETENTION_TIME)
                 searchparam = "name:" + series
 
                 response = session.list_volumes(params={"filter": searchparam},max_results=1500)
@@ -1680,7 +1680,7 @@ def findVolumeNoYear(series,issuenumber):
                 
     
 
-                session = Comicvine(api_key=CV_API_KEY, cache=SQLiteCache(cvCacheFile,CACHE_RETENTION_TIME))
+                session = Comicvine(api_key=CV_API_KEY, cache_path=Path(cvCacheFile), cache_expiry=CACHE_RETENTION_TIME)
                 searchparam = "name:" + series
                 response = session.list_volumes(params={"filter": searchparam},max_results=1500)
                 if len(response) == 0:

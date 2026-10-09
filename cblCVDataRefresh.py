@@ -16,7 +16,6 @@ import xml.etree.ElementTree as ET
 
 from datetime import timedelta
 from simyan.comicvine import Comicvine
-from simyan.cache import SQLiteCache
 
 class CommentedTreeBuilder(ElementTree.TreeBuilder):
     def comment(self, data):
@@ -67,7 +66,7 @@ def check_file(filePath, save_old=False, use_mylar=False):
         update_counter = 0
         series_updates = {}
         try:
-            cv_session = Comicvine(api_key=CV_API_KEY, cache=SQLiteCache(cvCacheFile,CACHE_RETENTION_TIME))
+            cv_session = Comicvine(api_key=CV_API_KEY, cache_path=Path(cvCacheFile), cache_expiry=CACHE_RETENTION_TIME)
         except:
             print(f"{filePath} Error creating CV session.  No changes made.")
             return

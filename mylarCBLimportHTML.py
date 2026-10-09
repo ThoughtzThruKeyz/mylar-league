@@ -22,7 +22,7 @@ from sys import argv
 import numpy as np
 import re
 from simyan.comicvine import Comicvine
-from simyan.cache import SQLiteCache
+from pathlib import Path
 import configparser
 from PIL import Image
 import pandas as pd
@@ -271,7 +271,7 @@ def getVolumeDetails(seriesID):
         try:
             print("     Searching for %s volume details on CV" % (str(seriesID)))
             #time.sleep(CV_API_RATE)
-            session = Comicvine(api_key=CV_API_KEY, cache=SQLiteCache(cvCacheFile,CACHE_RETENTION_TIME))
+            session = Comicvine(api_key=CV_API_KEY, cache_path=Path(cvCacheFile), cache_expiry=CACHE_RETENTION_TIME)
             response = session.get_volume(seriesID)
             cvSeriesName = response.name
             cvSeriesYear = response.start_year
@@ -302,7 +302,7 @@ def getIssueDetails(issueID):
         try:
             print("     Searching for %s issue details on CV" % (str(issueID)))
             #time.sleep(CV_API_RATE)
-            session = Comicvine(api_key=CV_API_KEY, cache=SQLiteCache(cvCacheFile,CACHE_RETENTION_TIME))
+            session = Comicvine(api_key=CV_API_KEY, cache_path=Path(cvCacheFile), cache_expiry=CACHE_RETENTION_TIME)
 
             response = session.get_issue(issueID)
             cvImageURL = response.image.medium_url
