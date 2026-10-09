@@ -1297,6 +1297,8 @@ def findIssueID(seriesID,issueNum):
                 if 'Object Not Found' in repr(e):
                     print('Not Found...  moving on....')
                     goodResponse = True
+                if 'Invalid API Key' in repr(e):
+                    raise SystemExit('ComicVine rejected the API key. Check cv_api_key in your config.')
     #print(issueID)
     return (issueID)
 
@@ -1329,6 +1331,8 @@ def getVolumeDetails(seriesID):
                 if 'Object Not Found' in repr(e):
                     print('Not Found...  moving on....')
                     goodResponse = True
+                if 'Invalid API Key' in repr(e):
+                    raise SystemExit('ComicVine rejected the API key. Check cv_api_key in your config.')
 
     return[cvSeriesName, cvSeriesYear, cvSeriesPublisher]
 
@@ -1354,6 +1358,8 @@ def getSeriesIDfromIssue(issueID):
                 if 'Object Not Found' in repr(e):
                     print('Not Found...  moving on....')
                     goodResponse = True
+                if 'Invalid API Key' in repr(e):
+                    raise SystemExit('ComicVine rejected the API key. Check cv_api_key in your config.')
     return seriesid
 
 def getIssueDetails(issueID):
@@ -1388,6 +1394,8 @@ def getIssueDetails(issueID):
                 if 'Object Not Found' in repr(e):
                     print('Not Found...  moving on....')
                     goodResponse = True
+                if 'Invalid API Key' in repr(e):
+                    raise SystemExit('ComicVine rejected the API key. Check cv_api_key in your config.')
             #print(cvImageURL, cvIssueURL, coverDate, cvIssueNum)
     return [cvImageURL, cvIssueURL, coverDate, cvIssueNum]
 
@@ -1592,6 +1600,8 @@ def findVolume(series,year):
                 if 'Object Not Found' in repr(e):
                     print('Not Found...  moving on....')
                     goodResponse = True
+                if 'Invalid API Key' in repr(e):
+                    raise SystemExit('ComicVine rejected the API key. Check cv_api_key in your config.')
             #Update counters
             if not found:
                 #CVNotFound += 1
@@ -1885,6 +1895,8 @@ def findVolumeNoYear(series,issuenumber):
                 if 'Object Not Found' in repr(e):
                     print('Not Found...  moving on....')
                     goodResponse = True
+                if 'Invalid API Key' in repr(e):
+                    raise SystemExit('ComicVine rejected the API key. Check cv_api_key in your config.')
 
     #Update counters
     if not found:
