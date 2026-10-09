@@ -29,7 +29,7 @@ from IPython.display import HTML
 import unicodedata  # Needed to strip character accents
 from datetime import datetime
 import sqlite3
-'''
+r'''
 
 config = configparser.ConfigParser(allow_no_value=True)
 

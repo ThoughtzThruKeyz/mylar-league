@@ -332,7 +332,7 @@ def parse_issueline(ti):
     incom = False
     ename = None
 
-    '''    
+    r'''    
     pat = self.evre.search(ti)
     if pat is not None:
         ename = pat.group(1)
