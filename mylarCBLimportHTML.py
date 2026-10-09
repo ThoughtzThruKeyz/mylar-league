@@ -374,7 +374,7 @@ def drophtml(html):
     if html is not None:
         soup = Soup(html, "html.parser")
 
-        text_parts = soup.findAll(string=True)
+        text_parts = soup.find_all(string=True)
         #print ''.join(text_parts)
         return ''.join(text_parts)
     else:
@@ -451,7 +451,7 @@ def findType(deckchunk, descchunk, number_issues, volumeYear):
         #descchunk = dm.getElementsByTagName('description')[0].firstChild.wholeText
         #descchunk = comic_desc
         desc_soup = Soup(descchunk, "html.parser")
-        desclinks = desc_soup.findAll('a')
+        desclinks = desc_soup.find_all('a')
         comic_desc = drophtml(descchunk)
         desdeck +=1
     except:
@@ -546,7 +546,7 @@ def findType(deckchunk, descchunk, number_issues, volumeYear):
             #if it's point form bullets, ignore it cause it's not the current volume stuff.
             test_it = desc_soup.find('ul')
             if test_it:
-                for x in test_it.findAll('li'):
+                for x in test_it.find_all('li'):
                     if any(['Next' in x.findNext(text=True), 'Previous' in x.findNext(text=True)]):
                         mic_check = x.find('a')
                         micdrop.append(mic_check['data-ref-id'])
