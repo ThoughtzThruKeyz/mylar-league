@@ -138,7 +138,7 @@ volume_pat_str = '(?<="series" data-begin=")(.+?(?="))'
 dynamicNameTemplate = '[^a-zA-Z0-9]'
 stop_words = ['the', 'a', 'and']
 yearStringCleanTemplate = '[^0-9]'
-cleanStringTemplate = '[^a-zA-Z0-9\:\-\(\) ]'
+cleanStringTemplate = r'[^a-zA-Z0-9\:\-\(\) ]'
 
 def parseWishlist():
     series_list = []

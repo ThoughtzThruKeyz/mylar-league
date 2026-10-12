@@ -50,7 +50,7 @@ for line in range(len(jsonAllData['content'])):
     for issue in range(len(jsonIssueData['content'])):
         #seriesName = re.sub(' \([0-9][0-9][0-9][0-9]\)','', jsonAllData['content'][line]['name'])
         #seriesYear = re.findall('\(([0-9][0-9][0-9][0-9])\)',jsonAllData['content'][line]['name'])
-        seriesName = re.sub(' \([0-9][0-9][0-9][0-9]\)','', jsonIssueData['content'][issue]['seriesTitle'])
+        seriesName = re.sub(r' \([0-9][0-9][0-9][0-9]\)','', jsonIssueData['content'][issue]['seriesTitle'])
         seriesName = re.sub(' V[0-9]{1,3}$','',seriesName)
         #seriesYear = re.findall('\(([0-9][0-9][0-9][0-9])\)',jsonIssueData['content'][issue]['seriesTitle'])
 
