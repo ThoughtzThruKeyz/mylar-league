@@ -1530,15 +1530,15 @@ def findVolume(series,year):
 
                                 print('made it this far')
                                 publisher_temp = result.publisher.name
-                                result_publishers.append(publisher_temp)
 
-                                series_matches.append(result)
                                 if result.id in SERIESID_BLACKLIST:
                                     print('Series ID found in blacklist, skipping')
-                                if publisher_temp in PUBLISHER_BLACKLIST:
+                                elif publisher_temp in PUBLISHER_BLACKLIST:
                                     result_matches_blacklist += 1
                                     publisher_blacklist_results.add(publisher_temp)
                                 else:
+                                    result_publishers.append(publisher_temp)
+                                    series_matches.append(result)
                                     found = True
                                     result_matches += 1
                                     publisher = publisher_temp
@@ -1706,7 +1706,7 @@ def findVolumeNoYear(series,issuenumber):
                         if result.publisher:
                             publisher = result.publisher.name
 
-                        if resultCleanName == seriesCleanName and not publisher in PUBLISHER_BLACKLIST:# and year -1 <=result.start_year <= year + 1:
+                        if resultCleanName == seriesCleanName and not publisher in PUBLISHER_BLACKLIST and not result.id in SERIESID_BLACKLIST:# and year -1 <=result.start_year <= year + 1:
                             print(f"     Found match for series: {result.name} ({result.start_year})")
                             cvIssueFind = findIssueID(result.id,issuenumber)
                             issueID = cvIssueFind
