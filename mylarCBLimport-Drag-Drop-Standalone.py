@@ -11,7 +11,19 @@ try:
     import requests  # Try importing requests
 except ImportError:
     print("requests module not found. Installing...")
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"])
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"])
+    except subprocess.CalledProcessError:
+        # e.g. Homebrew and most Linux system Pythons refuse pip installs ("externally-managed-environment")
+        print("\nCould not install requests automatically (see the pip message above).")
+        print("Install it yourself and run this script again, either with your system's package manager")
+        print("(for example: sudo apt install python3-requests) or from a Python virtual environment:")
+        venv_python = r"cbl-venv\Scripts\python" if os.name == "nt" else "cbl-venv/bin/python"
+        print("    python3 -m venv cbl-venv")
+        print("    " + venv_python + " -m pip install requests")
+        print("    " + venv_python + " " + os.path.basename(__file__) + " yourlist.cbl")
+        input("Press Enter to exit...")
+        sys.exit(1)
     print("requests installed successfully!")
     import requests  # Import again after installation
 
