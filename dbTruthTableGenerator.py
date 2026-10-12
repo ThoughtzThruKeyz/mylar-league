@@ -23,7 +23,6 @@ import pandas as pd
 
 from PIL import Image
 from io import BytesIO
-from IPython.display import HTML
 
 import unicodedata  # Needed to strip character accents
 from datetime import datetime
