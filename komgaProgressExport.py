@@ -23,7 +23,8 @@ timeStamp = time.strftime("%Y%m%d-%H%M%S")
 #komgaFile = 'komgareadprogress-' + timeStamp + '.csv'
 komgaInputFile = 'komgareadprogress-IMPORT-' + timeStamp + '.csv'
 
-komgaSeriesReadProgURL = komgaBaseURL + 'api/v1/series?read_status=READ&read_status=IN_PROGRESS'
+# unpaged=true: Komga returns 20 results per page by default
+komgaSeriesReadProgURL = komgaBaseURL + 'api/v1/series?read_status=READ&read_status=IN_PROGRESS&unpaged=true'
 
 try :
     komgaAllRead = requests.get(komgaSeriesReadProgURL, auth=HTTPBasicAuth(komgaUser, komgaPass)).text
@@ -39,11 +40,8 @@ print("         Pulling read progress from komga...")
 
 for line in range(len(jsonAllData['content'])):
 
-    komgaAllRead = requests.get(komgaSeriesReadProgURL, auth=HTTPBasicAuth(komgaUser, komgaPass)).text
-    jsonAllData = json.loads(komgaAllRead)
-    
     seriesID =  jsonAllData['content'][line]['id']
-    komgaIssuesURL = komgaBaseURL + 'api/v1/series/' + str(seriesID) + '/books?read_status=READ'
+    komgaIssuesURL = komgaBaseURL + 'api/v1/series/' + str(seriesID) + '/books?read_status=READ&unpaged=true'
        
     komgaIssueData = requests.get(komgaIssuesURL, auth=HTTPBasicAuth(komgaUser, komgaPass)).text
     jsonIssueData = json.loads(komgaIssueData)
