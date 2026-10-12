@@ -271,14 +271,13 @@ def findVolumeDetails(series,year):
                     #if result.name.lower() == series.lower() and str(result.start_year) == year:
 
                         publisher_temp = result.publisher.name
-                        result_publishers.append(publisher_temp)
-
-                        series_matches.append(result)
 
                         if publisher_temp in PUBLISHER_BLACKLIST:
                             result_matches_blacklist += 1
                             publisher_blacklist_results.add(publisher_temp)
                         else:
+                            result_publishers.append(publisher_temp)
+                            series_matches.append(result)
                             found = True
                             result_matches += 1
                             publisher = publisher_temp
